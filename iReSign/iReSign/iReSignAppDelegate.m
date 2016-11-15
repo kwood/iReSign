@@ -509,12 +509,10 @@ static NSString *kiTunesMetadataFileName            = @"iTunesMetadata";
          */
         
         NSString *infoPath = [NSString stringWithFormat:@"%@/Info.plist", filePath];
-        if ([[NSFileManager defaultManager]fileExistsAtPath:infoPath]) {
-            NSMutableDictionary *infoDict = [NSMutableDictionary dictionaryWithContentsOfFile:infoPath];
-            [infoDict removeObjectForKey:@"CFBundleResourceSpecification"];
-            [infoDict writeToFile:infoPath atomically:YES];
-            [arguments addObject:@"--no-strict"]; // http://stackoverflow.com/a/26204757
-        }
+        NSMutableDictionary *infoDict = [NSMutableDictionary dictionaryWithContentsOfFile:infoPath];
+        [infoDict removeObjectForKey:@"CFBundleResourceSpecification"];
+        [infoDict writeToFile:infoPath atomically:YES];
+        [arguments addObject:@"--no-strict"]; // http://stackoverflow.com/a/26204757
     }
     
     if (![[entitlementField stringValue] isEqualToString:@""]) {
