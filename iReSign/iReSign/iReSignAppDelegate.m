@@ -471,10 +471,8 @@ static NSString *kiTunesMetadataFileName            = @"iTunesMetadata";
     
     if (appPath) {
         if (hasFrameworks) {
-            for (NSString *framework in frameworks) {
-                [self signFile:framework];
-            }
-            [frameworks removeAllObjects];
+            [self signFile:[frameworks lastObject]];
+            [frameworks removeLastObject];
         } else {
             [self signFile:appPath];
         }
@@ -554,10 +552,8 @@ static NSString *kiTunesMetadataFileName            = @"iTunesMetadata";
         [timer invalidate];
         codesignTask = nil;
         if (frameworks.count > 0) {
-            for (NSString *framework in frameworks) {
-                [self signFile:framework];
-            }
-            [frameworks removeAllObjects];
+            [self signFile:[frameworks lastObject]];
+            [frameworks removeLastObject];
         } else if (hasFrameworks) {
             hasFrameworks = NO;
             [self signFile:appPath];
